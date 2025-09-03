@@ -1,0 +1,47 @@
+#cuerpo{
+    background-image: url('imagenes/escena-pokemon_5120x2880_xtrafondos.com.jpg');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    min-height: 100vh;
+}
+#pokecuerpo{
+    background-image: url('imagenes/koraidon-de-pokemon-escarlata-y-purpura_3840x2160_xtrafondos.com.jpg');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    min-height: 100vh;
+}
+#Equipocuerpo{
+    background-image: url('imagenes/pikachu-pokemon_3840x2144_xtrafondos.com.jpg');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    min-height: 100vh;
+}
+#Batallacuerpo{
+    background-image: url('imagenes/rayquaza-pokemon-ilustracion_5700x3206_xtrafondos.com.jpg');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    min-height: 100vh;
+}
+#titulo{
+    color: rgb(54, 57, 59);
+    font-family: "VT323";
+    font-size: 99px;
+}
+#vinculado{
+    font-family: "VT323";
+    font-size: 25px;
+}
+#rectangulo{
+    background-color: rgba(255, 255, 255, 0.4);
+}
+#fuente{
+    font-family: "VT323";
+    font-size: 25px;
+}
+#teamcuadrado{
+    background-color: antiquewhite;
+}
