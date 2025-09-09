@@ -8,7 +8,7 @@ flask = "*"
 python-dotenv = "*"
 flask-jwt-extended = "*"
 flask-bcrypt = "*"
-flask-mysql = "*"
+flask-mysqldb = "*"
 
 [dev-packages]
 

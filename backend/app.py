@@ -3,6 +3,8 @@ from flask_jwt_extended import JWTManager #importamos el jwt
 import os #importamos para interactue con el sistema operativo 
 from dotenv import load_dotenv #para que podamos usar las variables de entorno
 
+#importamos a bd.py las funciones que pusimos para conectar a la base de datos
+from config.db import init_db, mysql
 #importamos los archivos creados de nuestra carpeta routes
 from routes.entrenadores import entrenadores_bp
 from routes.pokemones import pokemones_bp
@@ -14,6 +16,10 @@ load_dotenv()
 def create_app():
     #instanciamos la app o sea le decimos cual sera el archivo principal, en este caso es app.py 
     app = Flask(__name__)
+
+    #decirle a la app donde esta la base de datos
+    init_db(app) 
+
     #LE DIJIMOS QUE ACCEDA A LA JWT QUE PREVIAMENTE PUSE EN MI ARCHIVO .ENV 
     app.config['JWT_SECRET_KEY'] = os.getenv("JWT_SECRET_KEY")
 
