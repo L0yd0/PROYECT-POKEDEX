@@ -3,6 +3,10 @@ from flask_jwt_extended import JWTManager #importamos el jwt
 import os #importamos para interactue con el sistema operativo 
 from dotenv import load_dotenv #para que podamos usar las variables de entorno
 
+#importamos los archivos creados de nuestra carpeta routes
+from routes.entrenadores import entrenadores_bp
+from routes.pokemones import pokemones_bp
+from routes.equipos import equipos_bp
 #cargamos las variables de entorno desde .env se carga para transmitirle que de mi archivo .env me jale todas mis variables de entorno 
 load_dotenv()
 
@@ -16,6 +20,10 @@ def create_app():
     #le decimos que use el jwt para nuestra app 
     jwt = JWTManager(app)
 
+    #ponemos nuestros blueprints para hacerle referencia a nuestras rutas entrenadores, pokemones, equipos como para crear nuestro link para solicitar la informacion
+    app.register_blueprint(entrenadores_bp, url_prefix='/entrenadores')
+    app.register_blueprint(pokemones_bp, url_prefix='/pokemones')
+    app.register_blueprint(equipos_bp, url_prefix='/equipos')
     return app #nos retorna la app 
 
 #creamos la aplicacion y la arrancamos:
