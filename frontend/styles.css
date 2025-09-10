@@ -20,7 +20,7 @@
     min-height: 100vh;
 }
 #Batallacuerpo{
-    background-image: url('imagenes/rayquaza-pokemon-ilustracion_5700x3206_xtrafondos.com.jpg');
+    background-image: url('imagene/rayquaza-pokemon-ilustracion_5700x3206_xtrafondos.com.jpg');
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
@@ -31,7 +31,7 @@
     font-family: "VT323";
     font-size: 99px;
 }
-#vinculado{
+.vinculado{
     font-family: "VT323";
     font-size: 25px;
 }
@@ -44,4 +44,19 @@
 }
 #teamcuadrado{
     background-color: antiquewhite;
+}
+
+#campo_batalla{
+    background-color: #343840;
+}
+
+#menu_seleccion{
+    background-color: #4b484862;
+}
+#boton{
+    background-color: red;
+}
+#title{
+    font-size: 70px;
+    font-family: "VT323";
 }
