@@ -6,7 +6,7 @@
     min-height: 100vh;
 }
 #pokecuerpo{
-    background-image: url('imagenes/koraidon-de-pokemon-escarlata-y-purpura_3840x2160_xtrafondos.com.jpg');
+    background-image: url('imagenes/holafondo.jpg');
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
@@ -42,10 +42,6 @@
     font-family: "VT323";
     font-size: 25px;
 }
-#teamcuadrado{
-    background-color: antiquewhite;
-}
-
 #campo_batalla{
     background-color: #343840;
 }
@@ -53,10 +49,42 @@
 #menu_seleccion{
     background-color: #4b484862;
 }
-#boton{
+#boton_iz{
+    background-color: rgb(255, 0, 0);
+    font-family: "VT323";
+    font-size: 25px;
+    color: azure;
+}
+#boton_der{
     background-color: red;
+    font-family: "VT323";
+    font-size: 25px;
+    color:azure;
+}
+#menuBoton{
+    background-color: red;
+    font-family: "VT323";
+    font-size: 25px;
+    color:azure;
 }
 #title{
     font-size: 70px;
+    font-family: "VT323";
+}
+#login-form{
+    background-color: aliceblue;
+}
+#login-btn{
+    background-color: red;
+    font-family: "VT323";
+    color:azure;
+}
+#registro-btn{
+    background-color: red;
+    font-family: "VT323";
+    color:azure;
+}
+#inicio-title{
+    font-size: 50px;
     font-family: "VT323";
 }
