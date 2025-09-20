@@ -85,7 +85,7 @@ def login():
             expires_delta=expires
         )
 
-        return jsonify({"accesToken":access_token}), 200
+        return jsonify({"accessToken":access_token}), 200
     else:
         return jsonify({"error":"credenciales incorrectas"}), 401
     

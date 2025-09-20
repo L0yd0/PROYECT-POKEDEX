@@ -22,7 +22,28 @@
         <button id="login-btn" class="rounded-full rounded w-1/2 p-3 cursor-pointer">Iniciar sesión</button>
         <button id="registro-btn" class="rounded-full rounded w-1/2 p-3 cursor-pointer">Registrarse</button>
     </div>
-</div>
+    <a href="index.html">
+        <button class="rounded-full p-3 bg-gray-400 cursor-pointer w-full text-white">Volver al Inicio</button>
+    </a>
+
+    </div>
+
+    <div id="equipo-seccion" class="hidden flex-col gap-6 p-8 m-4 bg-white rounded-xl shadow-md w-full max-w-md">
+        <h2 id="team-text"class="text-center">POKEMON TEAM</h2>
+        <input type="text" id="pokemon-input" placeholder="pokemon name: pikachu,charizard,etc">
+        <div class="flex justify-between gap-4">
+        <button id="add-btn" class="rounded-full w-1/3 p-2 bg-green-300 cursor-pointer">Agregar</button>
+        <button id="remove-btn" class="rounded-full w-1/3 p-2 bg-red-300 cursor-pointer">Eliminar</button>
+        <button id="show-btn" class="rounded-full w-1/3 p-2 bg-blue-300 cursor-pointer">Mostrar</button>
+        </div>
+        
+        <div class="flex justify-center mt-2">
+        <button id="logout-btn" class="rounded-full p-2 bg-gray-400 cursor-pointer w-full max-w-xs">Back to login</button>
+    </div>
+        <div id="equipo-lista" class="mt-4 p-3 bg-gray-200 rounded"></div>
+    </div>
+
+
 
 <script type="text/javascript">
     $("#login-form").submit(function(e){
@@ -45,8 +66,10 @@
             data: JSON.stringify({nombre_entrenador:nombre, password:password}),
             success: function(respuesta){
                 //guardamos el token
-                localStorage.setItem("token", respuesta.accesToken);
+                localStorage.setItem("token", respuesta.accessToken);
                 alert("Ahora puedes armar tu equipo");
+                $("#login-form").hide();
+                $("#equipo-seccion").removeClass("hidden").show();
             },
             error: function(errorInfo){
                 alert("Error"+errorInfo.responseJSON.error);
@@ -54,7 +77,135 @@
         });
     });
 
+    $("#registro-btn").click(function(){
+        let nombre = $("#nombre_entrenador").val();
+        let password = $("#password").val();
+
+        if(nombre=="" || password==""){
+            alert("Favor de poner TODOS los datos");
+            return;
+        }
+
+        $.ajax({
+            url:"http://localhost:8080/entrenadores/registrar",
+            method:"POST",
+            contentType: "application/json",
+            data: JSON.stringify({
+                nombre_entrenador: nombre,
+                password:password
+            }),
+            success: function(respuesta){
+                alert("registro exitoso: "+respuesta.mensaje);
+            },
+            error: function(errorInfo){
+                alert("error: "+errorInfo.responseJSON.error);
+            }
+        });
+    });
+
+    $("#add-btn").click(function(){
+        let pokemon = $("#pokemon-input").val().trim().toLowerCase();
+        let token = localStorage.getItem("token");
+
+        if(pokemon==""){
+            alert("escribe el nombre de un pokemon");
+            return;
+        }
+
+        $.ajax({
+            url:"http://localhost:8080/equipos/seleccion",
+            method:"POST",
+            headers:{
+                "Authorization": "Bearer "+ token
+            },
+            contentType:"application/json",
+            data: JSON.stringify({nombre: pokemon}),
+            success: function(respuesta){
+                alert(respuesta.mensaje);
+                $("#pokemon-input").val("");
+            },
+            error: function(error){
+                alert("error: "+error.responseJSON.error);
+            }
+        });
+    });
+
+    $("#remove-btn").click(function(){
+        let pokemon = $("#pokemon-input").val();
+        let token = localStorage.getItem("token");
+
+        if(pokemon==""){
+            alert("escribe el nombre de un pokemon");
+            return;
+        }
+
+        $.ajax({
+            url:"http://localhost:8080/equipos/borrar",
+            method:"DELETE",
+            headers:{
+                "Authorization": "Bearer "+ token
+            },
+            contentType:"application/json",
+            data: JSON.stringify({nombre: pokemon}),
+            success: function(respuesta){
+                alert(respuesta.mensaje);
+                $("#pokemon-input").val("");
+            },
+            error: function(error){
+                alert("error: "+error.responseJSON.error);
+            }
+        });
+    });
+
+    $("#show-btn").click(function(){
+    let token = localStorage.getItem("token");
+
+    $.ajax({
+        url: "http://localhost:8080/entrenadores/perfil",
+        method: "GET",
+        headers: {
+            "Authorization": "Bearer " + token
+        },
+        success: function(respuesta){
+            $("#equipo-lista").empty();
+            let equipo = respuesta.entrenador.equipo;
+
+            if(equipo.length === 0){
+                $("#equipo-lista").append("<p>No hay pokemones en tu equipo</p>");
+            } else {
+                equipo.forEach(poke => {
+                    $("#equipo-lista").append(`
+                        <div class="p-2 flex items-center gap-2">
+                            <img src="${poke.foto}" alt="${poke.nombre}" class="w-12 h-12">
+                            <span>${poke.nombre}</span>
+                        </div>
+                    `);
+                });
+            }
+        },
+        error: function(error){
+            alert("Error: " + error.responseJSON.error);
+        }
+    });
+});
+
+    $("#logout-btn").click(function() {
+    // Limpiar token
+    localStorage.removeItem("token");
     
+    // Ocultar sección del equipo
+    $("#equipo-seccion").addClass("hidden");
+    
+    // Mostrar formulario de login
+    $("#login-form").show();
+    
+    // Opcional: limpiar inputs
+    $("#nombre_entrenador").val("");
+    $("#password").val("");
+    $("#pokemon-input").val("");
+    $("#equipo-lista").empty();
+});
+
 </script>
 </body>
 </html>
